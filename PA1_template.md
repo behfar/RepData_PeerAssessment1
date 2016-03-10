@@ -10,7 +10,9 @@
 df <- read.csv('activity.csv')
 ```
 
-2. Summarize the data for total number of steps per day
+### What is the mean total number of steps taken per day?
+
+For this part of the assignment, we will ignore the missing values in the dataset (`na.rm=TRUE`).
 
 
 ```r
@@ -39,28 +41,15 @@ library(dplyr)
 # summarize data by total steps per day (i.e. per date)
 steps_per_day <- df %>%
   group_by(date) %>%
-  summarize(total=sum(steps))
-
-# a peek at the summary frame
-str(steps_per_day)
+  summarize(total=sum(steps, na.rm=TRUE))
 ```
-
-```
-## Classes 'tbl_df', 'tbl' and 'data.frame':	61 obs. of  2 variables:
-##  $ date : Factor w/ 61 levels "2012-10-01","2012-10-02",..: 1 2 3 4 5 6 7 8 9 10 ...
-##  $ total: int  NA 126 11352 12116 13294 15420 11015 NA 12811 9900 ...
-```
-
-### What is the mean total number of steps taken per day?
-
-For this part of the assignment, we will ignore the missing values in the dataset (`na.rm=TRUE`).
 
 1. Make a histogram of the total number of steps taken each day
 
 
 ```r
 # histogram of total number of steps per day
-hist(steps_per_day$total, breaks=25,
+hist(steps_per_day$total, breaks=25, col='grey',
   xlab='Total steps per day', ylab='Frequency', main='Histogram of total steps per day')
 ```
 
@@ -75,7 +64,7 @@ mean(steps_per_day$total, na.rm=TRUE)
 ```
 
 ```
-## [1] 10766.19
+## [1] 9354.23
 ```
 
 ```r
@@ -83,7 +72,7 @@ median(steps_per_day$total, na.rm=TRUE)
 ```
 
 ```
-## [1] 10765
+## [1] 10395
 ```
 
 ### What is the average daily activity pattern?
@@ -175,7 +164,7 @@ steps_per_day <- df_new %>%
   summarize(total=sum(steps))
 
 # df_new histogram of total number of steps per day
-hist(steps_per_day$total, breaks=25,
+hist(steps_per_day$total, breaks=25,  col='grey',
   xlab='Total steps per day', ylab='Frequency', main='Histogram of total steps per day')
 ```
 
